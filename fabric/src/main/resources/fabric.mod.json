@@ -16,7 +16,7 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.example.examplemod.ExampleMod"
+            "com.ewyboy.mineconomy.MineconomyFabric"
         ]
     },
     "mixins": [
@@ -33,4 +33,3 @@
         "another-mod": "*"
     }
 }
-  

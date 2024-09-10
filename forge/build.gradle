@@ -11,6 +11,10 @@ mixin {
     config("${mod_id}.forge.mixins.json")
 }
 
+dependencies {
+    implementation 'org.xerial:sqlite-jdbc:3.46.1.0'
+}
+
 minecraft {
     mappings channel: 'official', version: minecraft_version
 

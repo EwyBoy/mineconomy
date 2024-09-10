@@ -3,6 +3,7 @@ plugins {
     id 'fabric-loom'
 }
 dependencies {
+    implementation 'org.xerial:sqlite-jdbc:3.46.1.0'
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered {
         officialMojangMappings()
