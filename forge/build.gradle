@@ -13,6 +13,9 @@ mixin {
 
 dependencies {
     implementation 'org.xerial:sqlite-jdbc:3.46.1.0'
+    testImplementation('org.xerial:sqlite-jdbc:3.46.1.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 minecraft {

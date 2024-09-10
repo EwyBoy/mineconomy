@@ -3,10 +3,7 @@ package com.ewyboy.mineconomy;
 import com.ewyboy.mineconomy.platform.Services;
 import org.sqlite.JDBC;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Manages the connection to the SQLite database.
@@ -18,7 +15,7 @@ public class DatabaseManager {
      */
     private static volatile Connection connection = null;
 
-    static {
+    public static void init() {
         try {
             DriverManager.registerDriver(new JDBC());
         } catch (SQLException e) {
@@ -103,4 +100,34 @@ public class DatabaseManager {
             Constants.LOG.error("Error executing query: {}", e.getMessage(), e);
         }
     }
+
+    /**
+     * Executes a parameterized query on the SQLite database.
+     * Example: SELECT * FROM users WHERE id = ?
+     *
+     * @param query The SQL query with placeholders for parameters (e.g., ?).
+     * @param params The parameters to bind to the query.
+     * @return ResultSet of the executed query.
+     */
+    public static ResultSet executeQuery(String query, Object... params) {
+        if (!isConnectionOpen()) {
+            Constants.LOG.warn("No open connection. Please open a connection first.");
+            return null;
+        }
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            // Set the parameters to the prepared statement
+            for (int i = 0; i < params.length; i++) {
+                preparedStatement.setObject(i + 1, params[i]);
+            }
+
+            return preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            Constants.LOG.error("Error executing query: {}", e.getMessage(), e);
+            return null;
+        }
+    }
+
 }

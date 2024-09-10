@@ -1,17 +1,16 @@
-package com.ewyboy.mineconomy;
-
+import com.ewyboy.mineconomy.Constants;
+import com.ewyboy.mineconomy.DatabaseManager;
 import net.minecraft.core.registries.BuiltInRegistries;
+import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-public class Mineconomy {
+import static com.ewyboy.mineconomy.Mineconomy.getRandomNumber;
 
-    // get random number in range
-    public static int getRandomNumber(int min, int max) {
-        return (int) (Math.random() * (max - min + 1) + min);
-    }
+public class MineconomyForgeTest {
 
-    public static void init() {
+    @Test
+    public void testRunQuery() {
         DatabaseManager.init();
 
         DatabaseManager.openConnection();
@@ -93,6 +92,8 @@ public class Mineconomy {
                 Constants.LOG.error("Error while reading transactions: {}", e.getMessage(), e);
             }
         }
+
+        assert transactions != null;
 
         DatabaseManager.closeConnection();
     }
